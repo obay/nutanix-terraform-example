@@ -1,4 +1,4 @@
-# nutanix-terraform-sample
+# Infrastructure as Code: What Is It, and Why Should You Care?
 
 This project contains all the Terraform files used during the BrightTALK "Infrastructure as Code: What Is It, and Why Should You Care?" found on https://www.brighttalk.com/webcast/18167/398218?utm_source=Nutanix+Middle+East&utm_medium=brighttalk&utm_campaign=398218.
 
