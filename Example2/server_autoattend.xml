@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+   <settings pass="specialize">
+      <component name="Microsoft-Windows-TerminalServices-LocalSessionManager" processorArchitecture="x86" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <fDenyTSConnections>false</fDenyTSConnections>
+      </component>
+      <component name="Microsoft-Windows-TerminalServices-RDP-WinStationExtensions" processorArchitecture="x86" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <UserAuthentication>0</UserAuthentication>
+      </component>
+      <component name="Networking-MPSSVC-Svc" processorArchitecture="x86" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <FirewallGroups>
+            <FirewallGroup wcm:action="add" wcm:keyValue="rd1">
+               <Active>true</Active>
+               <Group>Remote Desktop</Group>
+               <Profile>all</Profile>
+            </FirewallGroup>
+         </FirewallGroups>
+      </component>
+   </settings>
+   
+   <settings pass="windowsPE">
+      <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <SetupUILanguage>
+            <UILanguage>en-US</UILanguage>
+         </SetupUILanguage>
+         <InputLocale>0c09:00000409</InputLocale>
+         <SystemLocale>en-US</SystemLocale>
+         <UILanguage>en-US</UILanguage>
+         <UILanguageFallback>en-US</UILanguageFallback>
+         <UserLocale>ar-SA</UserLocale>
+      </component>
+   </settings>
+
+   <settings pass="specialize">
+      <component name="Microsoft-Windows-TerminalServices-LocalSessionManager" processorArchitecture="x86" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <fDenyTSConnections>false</fDenyTSConnections>
+      </component>
+      <component name="Microsoft-Windows-TerminalServices-RDP-WinStationExtensions" processorArchitecture="x86" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <UserAuthentication>0</UserAuthentication>
+      </component>
+      <component name="Networking-MPSSVC-Svc" processorArchitecture="x86" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+         <FirewallGroups>
+            <FirewallGroup wcm:action="add" wcm:keyValue="rd1">
+               <Active>true</Active>
+               <Group>Remote Desktop</Group>
+               <Profile>all</Profile>
+            </FirewallGroup>
+         </FirewallGroups>
+      </component>
+   </settings>
+
+   <settings pass="oobeSystem">
+      <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
+      <AutoLogon>
+            <Password>
+               <Value>supersecretpassword</Value>
+               <PlainText>true</PlainText>
+            </Password>
+            <Username>Administrator</Username>
+            <Enabled>true</Enabled>
+         </AutoLogon>
+
+         <OOBE>
+            <HideEULAPage>true</HideEULAPage>
+            <HideLocalAccountScreen>true</HideLocalAccountScreen>
+            <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+            <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+            <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+            <NetworkLocation>Home</NetworkLocation>
+            <ProtectYourPC>1</ProtectYourPC>
+            <SkipMachineOOBE>true</SkipMachineOOBE>
+            <SkipUserOOBE>true</SkipUserOOBE>
+         </OOBE>
+         
+         <FirstLogonCommands>
+         <SynchronousCommand wcm:action="add">
+               <CommandLine>%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe Set-NetConnectionProfile -NetworkCategory Private -InterfaceIndex (Get-NetConnectionProfile).InterfaceIndex</CommandLine>
+               <Description>Set the Network Profile to Private</Description>
+               <Order>1</Order>
+               <RequiresUserInput>true</RequiresUserInput>
+            </SynchronousCommand>
+            <SynchronousCommand wcm:action="add">
+               <CommandLine>netsh advfirewall firewall set rule group="Network Discovery" new enable=Yes</CommandLine>
+               <Description>Turn On Network Discovery for All Network Profiles</Description>
+               <Order>2</Order>
+               <RequiresUserInput>true</RequiresUserInput>
+            </SynchronousCommand>
+            <SynchronousCommand wcm:action="add">
+               <CommandLine>%SystemRoot%\System32\winrm quickconfig -q</CommandLine>
+               <Order>3</Order>
+               <Description>Configure WinRM</Description>
+            </SynchronousCommand>
+         </FirstLogonCommands>
+
+         <RegisteredOrganization>Nutanix</RegisteredOrganization>
+         <RegisteredOwner>Ahmad Obay</RegisteredOwner>
+         <DisableAutoDaylightTimeSet>false</DisableAutoDaylightTimeSet>
+         <TimeZone>Arabian Standard Time</TimeZone>
+         <UserAccounts>
+            <AdministratorPassword>
+               <Value>supersecretpassword</Value>
+               <PlainText>true</PlainText>
+            </AdministratorPassword>
+         </UserAccounts>
+      </component>
+   </settings>
+</unattend>
